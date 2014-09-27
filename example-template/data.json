@@ -1,0 +1,12 @@
+[
+  {
+    "name": "John Doe",
+    "email": "john@doe.com",
+    "unsubscribeUrl": "#unsubscribeJohn"
+  },
+  {
+    "name": "Jane Doe",
+    "email": "jane@doe.com",
+    "unsubscribeUrl": "#unsubscribeJane"
+  }
+]

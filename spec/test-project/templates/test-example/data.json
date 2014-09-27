@@ -1,0 +1,14 @@
+{
+  "name": "John Doe",
+  "email": "john@doe.com",
+  "delivered": true,
+  "company": {
+    "name": "Acme",
+    "location": "123 Main"
+  },
+  "interests": [
+    {"name": "Archery"},
+    {"name": "Badminton"},
+    {"name": "Cards"}
+  ]
+}

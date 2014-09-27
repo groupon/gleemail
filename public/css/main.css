@@ -1,0 +1,119 @@
+nav select {
+  margin: 8px 0 0 16px;
+  padding-right: 30px;
+}
+
+.modal {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+#template-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#template-actions {
+  margin: 0px;
+}
+
+  #template-actions > li {
+    display: inline-block;
+    height: 45px;
+    line-height: 45px;
+    margin-left: 20px;
+    position: relative;
+  }
+
+    #template-actions > li:hover .dropdown {
+      display: block;
+    }
+
+  #template-actions .dropdown {
+    background: #414196;
+    box-shadow: rgba(0,0,0,0.5) 5px 7px 10px;
+    display: none;
+    left: -5px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 44px;
+    width: 200px;
+    z-index: 10;
+  }
+
+    #template-actions .dropdown li {
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+
+    #template-actions .dropdown a {
+      display: block;
+      line-height: 1;
+      padding: 10px;
+    }
+
+      #template-actions .dropdown a:hover {
+        background: #785585;
+      }
+
+  #template-actions .text, #template-actions .icon {
+    color: white;
+    font-size: 16px;
+  }
+
+    #template-actions a .icon {
+      font-size: 20px;
+      margin-right: 3px;
+      vertical-align: middle;
+    }
+
+header.header-purple {
+  border-top: 1px solid #A379C4;
+  border-bottom: 1px solid #4C3272;
+  background-color: #7855B5;
+  background-image: -webkit-linear-gradient(top, #7055B5, #414196);
+  background-image: -moz-linear-gradient(top, #7055B5, #414196);
+  background-image: linear-gradient(top, #7055B5, #414196);
+}
+header.header-purple a {
+  color: white;
+}
+header.header-purple .icon-logo-g {
+  color: white;
+}
+header.header-purple nav ul {
+  box-shadow: 1px 0 0 #7055B5;
+  border-right: 1px solid #414196;
+}
+header.header-purple nav ul li a {
+  box-shadow: 1px 0 0 #7055B5 inset;
+  border-left: 1px solid #414196;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
+}
+header.header-purple nav ul li.active a, header.header-purple nav ul li:hover a {
+  box-shadow: none;
+  background-image: -webkit-linear-gradient(top, #503595, #212176);
+  background-image: -moz-linear-gradient(top, #503595, #212176);
+  background-image: linear-gradient(top, #503595, #212176);
+  color: white;
+  background-color: #212176;
+}
+
+.modal pre {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+header .pagination {
+  background: white;
+  float: left;
+  margin: 7px 0 0 15px;
+}
+
+  header .pagination a {
+    color: #A379C4;
+  }

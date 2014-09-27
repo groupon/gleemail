@@ -1,0 +1,36 @@
+{
+  "name": "gleemail",
+  "version": "1.0.3",
+  "description": "A platform for making HTML email template development fun!",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "bin": {
+    "gleemail": "bin/gleemail"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "body-parser": "^1.2.2",
+    "cheerio": "^0.16.0",
+    "commonjs-everywhere": "^0.9.7",
+    "express": "^4.4.0",
+    "glob": "^3.1.10",
+    "hogan.js": "^2.0.0",
+    "juice": "^0.4.0",
+    "knox": "^0.8.10",
+    "nodemailer": "^0.6.5",
+    "request": "^2.36.0",
+    "socket.io": "^1.0.2",
+    "stylus": "^0.45.1",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "coffee-script-redux": "2.0.0-beta7",
+    "jasmine-node": "^1.14.5",
+    "npub": "~0.0.6"
+  },
+  "author": "Chris Powers <chrisjpowers@gmail.com>",
+  "license": "BSD-3-Clause",
+  "repository": "https://github.com/groupon/gleemail"
+}
