@@ -22,6 +22,8 @@ Gleemail is an attempt to change that. It's a local development environment for 
 * Automatically render templates with dummy data from a JSON file.
 * CLI for rendering templates from the command line.
 
+[Demo Presentation](https://vimeo.com/108481023)
+
 ## Getting Started
 
 Install Node.js, then install the `gleemail` npm package globally:
