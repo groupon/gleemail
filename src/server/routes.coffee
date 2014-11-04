@@ -122,7 +122,7 @@ module.exports = (app) ->
 
   # Send all other GET requests to the Angular app
   app.get "*", (req, res) ->
-    res.sendfile pathLib.resolve("#{__dirname}/../../public/index.html")
+    res.sendFile pathLib.resolve("#{__dirname}/../../public/index.html")
 
 renderOptions = (req, overrides={}) ->
   options =
