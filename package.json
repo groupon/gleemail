@@ -1,6 +1,6 @@
 {
   "name": "gleemail",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A platform for making HTML email template development fun!",
   "main": "index.js",
   "scripts": {
