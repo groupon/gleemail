@@ -11,7 +11,8 @@ LIB = $(SRC:$(SRCDIR)/%.coffee=$(LIBDIR)/%.js)
 
 $(LIBDIR)/%.js: $(SRCDIR)/%.coffee
 	@mkdir -p "$(@D)"
-	$(COFFEE) <"$<" >"$@"
+	cat JS_LICENSE > "$@"
+	$(COFFEE) <"$<" >>"$@"
 
 public/js/main.js: $(shell find $(SRCDIR)/client -type f -name '*.js' | sort)
 	@./node_modules/.bin/cjsify -o public/js/main.js lib/client/gleemail.js

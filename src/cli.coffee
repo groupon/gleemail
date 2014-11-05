@@ -66,7 +66,7 @@ commands =
 
   project: (dirname) ->
     targetDir = "#{config.root}/#{dirname}"
-    exec "cp -r #{__dirname}/../project-template #{targetDir}", (err, stdout, stderr) ->
+    exec "cp -r #{__dirname}/../project-template #{targetDir} && mv #{targetDir}/gitignore #{targetDir}/.gitignore", (err, stdout, stderr) ->
       if err
         console.error err
         console.error stderr
