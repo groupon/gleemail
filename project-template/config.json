@@ -1,0 +1,15 @@
+{
+  "s3": {
+    "key": "......",
+    "secret": ".......",
+    "bucket": ".......",
+    "region": "eu-west-1"
+  },
+  "smtp": {
+    "service": "gmail",
+    "auth" : {
+      "user": ".......@gmail.com",
+      "pass": "........."
+    }
+  }
+}
