@@ -71,6 +71,11 @@
               </ul>
             </li>
 
+            <li ng-show='$config.myemails'>
+              <span class='icon icon-email'></span>
+              <a class="text" ng-click='mailToMeClicked()'>Mail to me</a>
+            </li>
+
             <li>
               <span class='icon icon-out'></span>
               <span class="text">Export</span>

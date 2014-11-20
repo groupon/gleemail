@@ -46,6 +46,9 @@ templates = require "./templates"
 LITMUS_CLIENTS = ["android22", "android4", "aolonline", "androidgmailapp", "appmail6", "iphone5s", "ipadmini", "ipad", "gmailnew", "ffgmailnew", "chromegmailnew", "iphone4", "iphone5", "ol2007", "ol2010", "ol2011", "ol2013", "outlookcom", "ffoutlookcom", "chromeoutlookcom", "plaintext", "yahoo", "ffyahoo", "chromeyahoo", "windowsphone8"]
 
 module.exports = (app) ->
+  app.get "/config.json", (req, res) ->
+    res.json config
+
   app.get "/templates.json", (req, res) ->
     templates.all (err, templates) ->
       return res.status(500).send err if err

@@ -35,7 +35,7 @@
       var cwd = '/';
       return {
         title: 'browser',
-        version: 'v0.10.26',
+        version: 'v0.10.33',
         browser: true,
         env: {},
         argv: [],
@@ -69,11 +69,29 @@
     });
   });
   require.define('/src/client/controllers/main.coffee', function (module, exports, __dirname, __filename) {
-    angular.module('Gleemail').controller('Main', function ($scope, $resource, $location) {
+    var app;
+    app = angular.module('Gleemail');
+    app.service('$config', function ($http) {
+      var r;
+      r = {};
+      $http.get('/config.json').success(function (data) {
+        var k, v;
+        return function (accum$) {
+          for (k in data) {
+            v = data[k];
+            accum$.push(r[k] = v);
+          }
+          return accum$;
+        }.call(this, []);
+      });
+      return r;
+    });
+    app.controller('Main', function ($scope, $config, $resource, $location) {
       var configResource, displayTemplate, match, rendererResource, socket, templateListResource;
       templateListResource = $resource('/templates.json');
       rendererResource = $resource('/renderers');
       configResource = $resource('/templates/:id/config');
+      $scope.$config = $config;
       $scope.renderers = rendererResource.query();
       $scope.templateList = templateListResource.query();
       $scope.textContent = null;
@@ -161,6 +179,24 @@
             return console.error(err);
           }
         });
+      };
+      $scope.mailToMeClicked = function () {
+        var email;
+        return function (accum$) {
+          for (var i$ = 0, length$ = $config.myemails.length; i$ < length$; ++i$) {
+            email = $config.myemails[i$];
+            accum$.push($.ajax({
+              type: 'POST',
+              dataType: 'json',
+              data: { email: email },
+              url: '/templates/' + $scope.displayedTemplate.name + '/email?useAbsoluteUrls=true&dataIndex=' + $scope.dataIndex,
+              error: function (err) {
+                return console.error(err);
+              }
+            }));
+          }
+          return accum$;
+        }.call(this, []);
       };
       $scope.onEmailClicked = function () {
         var email;

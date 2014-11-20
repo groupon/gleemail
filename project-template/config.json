@@ -1,4 +1,5 @@
 {
+  "myemails": ["........@gmail.com", ".........@yahoo.com"],
   "s3": {
     "key": "......",
     "secret": ".......",

@@ -30,11 +30,21 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-angular.module("Gleemail").controller "Main", ($scope, $resource, $location) ->
+app = angular.module("Gleemail")
+
+app.service "$config", ($http) ->
+  r = {}
+  $http.get('/config.json').success (data)->
+    for k,v of data
+      r[k] = v
+  r
+
+app.controller "Main", ($scope, $config, $resource, $location) ->
   templateListResource = $resource "/templates.json"
   rendererResource = $resource "/renderers"
   configResource = $resource "/templates/:id/config"
 
+  $scope.$config = $config
   $scope.renderers = rendererResource.query()
   $scope.templateList = templateListResource.query()
   $scope.textContent = null
@@ -103,6 +113,17 @@ angular.module("Gleemail").controller "Main", ($scope, $resource, $location) ->
         console.log "Litmus Results", data
       error: (err) ->
         console.error err
+
+  $scope.mailToMeClicked = ->
+    for email in $config.myemails
+      $.ajax
+        type: "POST"
+        dataType: "json"
+        data:
+          email: email
+        url: "/templates/#{$scope.displayedTemplate.name}/email?useAbsoluteUrls=true&dataIndex=#{$scope.dataIndex}"
+        error: (err) ->
+          console.error err
 
   $scope.onEmailClicked = ->
     email = prompt "Send to email:"
