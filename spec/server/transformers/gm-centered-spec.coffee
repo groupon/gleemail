@@ -50,3 +50,9 @@ describe "gm-centered attribute transform", ->
 
   it "removes the gm-centered attribute", ->
     expect(@wrapper.is "[gm-centered]").toBeFalsy()
+
+  it "handle nested gm-centered", ->
+    $ = cheerio.load '<div id="foo" gm-centered><div id="content"><div id="bar" gm-centered>hello</div></div></div>'
+    transform $, "template", {}, (err, $$$) =>
+      expect($$$('#foo').find(" table").length).toEqual 2
+      expect($$$('#bar').find(" table").length).toEqual 1
