@@ -50,7 +50,7 @@ module.exports = class Transformer
         return cb(err) if err
         i++
         if @_transformers.length <= i
-          cb(null, $$$.html())
+          cb(null, $$$.html(null, {  decodeEntities: false} ))
         else
           run($$$)
     run cheerio.load(html)
