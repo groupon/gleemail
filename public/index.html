@@ -73,17 +73,15 @@
               </ul>
             </li>
 
-            <li ng-show='$config.myemails'>
-              <span class='icon icon-email'></span>
-              <a class="text" ng-click='mailToMeClicked()'>Mail to me</a>
-            </li>
-
             <li>
               <span class='icon icon-out'></span>
               <span class="text">Export</span>
               <ul class="dropdown">
+                <li ng-show='$config.myemails'>
+                  <a ng-click="mailToMeClicked()">Send to me</a>
+                </li>
                 <li>
-                  <a ng-click="onEmailClicked()">Deliver Email</a>
+                  <a ng-click="onEmailClicked()">Send to <i>email</i></a>
                 </li>
                 <li>
                   <a ng-click="onLitmusClicked()">Send to Litmus</a>
