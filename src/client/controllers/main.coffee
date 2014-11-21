@@ -39,7 +39,9 @@ app.service "$config", ($http) ->
       r[k] = v
   r
 
-app.controller "Main", ($scope, $config, $resource, $location) ->
+app.controller "Main", ($scope, $config, $resource, $location, $http) ->
+  toastr.options.positionClass = 'toast-top-left'
+
   templateListResource = $resource "/templates.json"
   rendererResource = $resource "/renderers"
   configResource = $resource "/templates/:id/config"
@@ -114,38 +116,21 @@ app.controller "Main", ($scope, $config, $resource, $location) ->
       error: (err) ->
         console.error err
 
+  sendEmail = (email)->
+    url = "/templates/#{$scope.displayedTemplate.name}/email?useAbsoluteUrls=true&dataIndex=#{$scope.dataIndex}"
+    r = $http.post(url, { email: email})
+    r.success ()->
+      toastr.success "Email to <i>#{email}</i> sended"
+    r.error (err)->
+      toastr.error "Error with sending to <i>#{email}</i>"
+      console.error err
+
   $scope.mailToMeClicked = ->
-    for email in $config.myemails
-      $.ajax
-        type: "POST"
-        dataType: "json"
-        data:
-          email: email
-        url: "/templates/#{$scope.displayedTemplate.name}/email?useAbsoluteUrls=true&dataIndex=#{$scope.dataIndex}"
-        error: (err) ->
-          console.error err
+    _.each $config.myemails, sendEmail
 
   $scope.onEmailClicked = ->
     email = prompt "Send to email:"
-    return unless email
-    $.ajax
-      type: "POST"
-      dataType: "json"
-      data:
-        email: email
-      url: "/templates/#{$scope.displayedTemplate.name}/email?useAbsoluteUrls=true&dataIndex=#{$scope.dataIndex}"
-      error: (err) ->
-        console.error err
-
-  $scope.onShipToEloquaClicked = ->
-    return unless confirm "Are you sure you want to send this to Eloqua?"
-    $.ajax
-      type: "POST"
-      dataType: "json"
-      url: "/templates/#{$scope.displayedTemplate.name}/eloqua"
-      error: (err) ->
-        console.error err
-
+    sendEmail(email) if email
 
   # Preview
 
