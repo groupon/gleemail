@@ -82,7 +82,7 @@ module.exports = (app) ->
 
   app.post "/templates/:templateName/email", (req, res) ->
     templateName = req.params.templateName
-    recipient = req.param "email"
+    recipient = req.params.email
     unless recipient
       return res.status(400).send error: "No email received"
     deliverEmail templateName, [recipient], renderOptions(req, useAbsoluteUrls: true), (err) ->
@@ -90,7 +90,7 @@ module.exports = (app) ->
       res.send "ok"
 
   app.post "/templates", (req, res) ->
-    templateName = req.param "templateName"
+    templateName = req.params.templateName
     return res.status(404).send "not found" unless templateName
     createTemplate templateName, (err, path) ->
       return res.status(500).send err if err
@@ -126,8 +126,8 @@ module.exports = (app) ->
 
 renderOptions = (req, overrides={}) ->
   options =
-    useAbsoluteUrls: req.param("useAbsoluteUrls") == "true"
-    renderer: req.param("renderer")
-    dataIndex: parseInt(req.param("dataIndex"), 10) if req.param("dataIndex")
+    useAbsoluteUrls: req.params.useAbsoluteUrls == "true"
+    renderer: req.params.renderer
+    dataIndex: parseInt(req.params.dataIndex, 10) if req.params.dataIndex
   options[k] = v for k, v in overrides
   options
