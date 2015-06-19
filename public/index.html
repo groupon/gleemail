@@ -4,8 +4,10 @@
     <link rel="stylesheet" href="/css/toolstrap.css" />
     <link rel="stylesheet" href="/css/icon-styles.css" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/vendor/toastr.min.css" />
     <script src="/js/vendor/underscore.js"></script>
     <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/vendor/toastr.min.js"></script>
     <script src="/js/vendor/angular.js"></script>
     <script src="/js/vendor/angular-resource.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -75,8 +77,11 @@
               <span class='icon icon-out'></span>
               <span class="text">Export</span>
               <ul class="dropdown">
+                <li ng-show='$config.myemails'>
+                  <a ng-click="mailToMeClicked()">Send to me</a>
+                </li>
                 <li>
-                  <a ng-click="onEmailClicked()">Deliver Email</a>
+                  <a ng-click="onEmailClicked()">Send to <i>email</i></a>
                 </li>
                 <li>
                   <a ng-click="onLitmusClicked()">Send to Litmus</a>

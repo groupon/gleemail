@@ -38,7 +38,7 @@ module.exports = ($, templateName, options, cb) ->
       wrapper = $("<table style='width:100%;'><tr><td align='center'></td></tr></table>")
       inner = wrapper.find "td"
       inner.append $el.contents()
-      $el.html wrapper
+      $el.empty().append(wrapper)
   catch e
     return cb(e)
 

@@ -36,10 +36,7 @@ async = require "async"
 fs = require "fs"
 
 module.exports = (templateName, cb=->) ->
-  c = knox.createClient
-    key: config.s3.key
-    secret: config.s3.secret
-    bucket: config.s3.bucket
+  c = knox.createClient config.s3
   uploadFilename = (filename, cb) ->
     c.putFile "#{dir}/#{filename}", "/#{templateName}/images/#{filename}", "x-amz-acl": "public-read", cb
 

@@ -35,7 +35,7 @@
       var cwd = '/';
       return {
         title: 'browser',
-        version: 'v0.10.26',
+        version: 'v0.10.33',
         browser: true,
         env: {},
         argv: [],
@@ -69,11 +69,30 @@
     });
   });
   require.define('/src/client/controllers/main.coffee', function (module, exports, __dirname, __filename) {
-    angular.module('Gleemail').controller('Main', function ($scope, $resource, $location) {
-      var configResource, displayTemplate, match, rendererResource, socket, templateListResource;
+    var app;
+    app = angular.module('Gleemail');
+    app.service('$config', function ($http) {
+      var r;
+      r = {};
+      $http.get('/config.json').success(function (data) {
+        var k, v;
+        return function (accum$) {
+          for (k in data) {
+            v = data[k];
+            accum$.push(r[k] = v);
+          }
+          return accum$;
+        }.call(this, []);
+      });
+      return r;
+    });
+    app.controller('Main', function ($scope, $config, $resource, $location, $http) {
+      var configResource, displayTemplate, match, rendererResource, sendEmail, socket, templateListResource;
+      toastr.options.positionClass = 'toast-top-left';
       templateListResource = $resource('/templates.json');
       rendererResource = $resource('/renderers');
       configResource = $resource('/templates/:id/config');
+      $scope.$config = $config;
       $scope.renderers = rendererResource.query();
       $scope.templateList = templateListResource.query();
       $scope.textContent = null;
@@ -162,32 +181,26 @@
           }
         });
       };
+      sendEmail = function (email) {
+        var r, url;
+        url = '/templates/' + $scope.displayedTemplate.name + '/email?useAbsoluteUrls=true&dataIndex=' + $scope.dataIndex;
+        r = $http.post(url, { email: email });
+        r.success(function () {
+          return toastr.success('Email to <i>' + email + '</i> sended');
+        });
+        return r.error(function (err) {
+          toastr.error('Error with sending to <i>' + email + '</i>');
+          return console.error(err);
+        });
+      };
+      $scope.mailToMeClicked = function () {
+        return _.each($config.myemails, sendEmail);
+      };
       $scope.onEmailClicked = function () {
         var email;
         email = prompt('Send to email:');
-        if (!email)
-          return;
-        return $.ajax({
-          type: 'POST',
-          dataType: 'json',
-          data: { email: email },
-          url: '/templates/' + $scope.displayedTemplate.name + '/email?useAbsoluteUrls=true&dataIndex=' + $scope.dataIndex,
-          error: function (err) {
-            return console.error(err);
-          }
-        });
-      };
-      $scope.onShipToEloquaClicked = function () {
-        if (!confirm('Are you sure you want to send this to Eloqua?'))
-          return;
-        return $.ajax({
-          type: 'POST',
-          dataType: 'json',
-          url: '/templates/' + $scope.displayedTemplate.name + '/eloqua',
-          error: function (err) {
-            return console.error(err);
-          }
-        });
+        if (email)
+          return sendEmail(email);
       };
       displayTemplate = function (template) {
         var cacheBuster;
