@@ -42,7 +42,7 @@ module.exports = ($orHtml, templateName, options, cb) ->
   withStyles "#{dir}/style.styl", (err, css) ->
     return cb(err) if err
     html = if $orHtml.html then $orHtml.html() else $orHtml
-    juice.juiceContent html, extraCss: css, url: "file://#{dir}", (err, html) ->
+    juice html, extraCss: css, url: "file://#{dir}", (err, html) ->
       return cb(err) if err
       cb null, cheerio.load(html)
 
